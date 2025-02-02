@@ -1,20 +1,23 @@
+import React, { useMemo, useState } from "react";
 
-import React, { useMemo } from 'react';
+const UseMemo = () => {
+  const [count, setCount] = useState(0);
 
-const UseMemo = ({ todos }) => {
-  const expensiveCalculation = useMemo(() => {
-    console.log('Expensive calculation running');
-    return todos.filter(todo => todo.task.includes('New'));
-  }, [todos]);
+  const result = useMemo(() => {
+    return count * 2;
+  }, [count]);
 
+  const onIncrease = () => {
+    setCount(count + 1);
+  };
   return (
     <div>
-      <h3>Memoized Todos with "New" in their task:</h3>
-      <ul>
-        {expensiveCalculation.map(todo => (
-          <li key={todo.id}>{todo.task}</li>
-        ))}
-      </ul>
+      <div>
+        <span>Count:{count}</span>
+        <button onClick={onIncrease}>+</button>
+      </div>
+      <h2>Expensive Calculation</h2>
+      {result}
     </div>
   );
 };
